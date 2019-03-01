@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from squad.core.models import Project, Environment
 from squad.ci.models import Backend
 
+
 class DisplayName(object):
     @property
     def displayname(self):
@@ -28,8 +29,10 @@ class VtsVersion(models.Model, DisplayName):
     description = models.CharField(default='', max_length=256)
 
     user = models.ForeignKey(User)
+
     def __str__(self):
         return self.name
+
 
 class VtsModel(models.Model, DisplayName):
     name = models.CharField(default='', max_length=64)
@@ -37,6 +40,7 @@ class VtsModel(models.Model, DisplayName):
     description = models.CharField(default='', max_length=256)
 
     test_definition = models.ForeignKey(TestDefinition)
+
     def __str__(self):
         return self.name
 

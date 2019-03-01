@@ -10,13 +10,14 @@ admin.site.site_title = admin_site_name
 admin.site.site_header = admin_site_name
 
 
-
 def update_pac_nodes(modeladmin, request, queryset):
     for device_type in queryset:
         update_pac_node.delay(device_type.id)
 
 
 update_pac_nodes.short_description = "update pac nodes"
+
+
 class DeviceTypeAdmin(admin.ModelAdmin):
     """
     Handles global tokens, i.e. tokens that are not projec-specific.
@@ -25,6 +26,7 @@ class DeviceTypeAdmin(admin.ModelAdmin):
     fields = ['name', 'pac_node', 'backend', 'project', 'env', 'slug', 'base_pac_url']
     list_display = ['name', 'backend', 'project', 'env', 'slug',]
     actions = [update_pac_nodes]
+
 
 class VtsVersionAdmin(admin.ModelAdmin):
     """
@@ -42,6 +44,7 @@ class VtsModelAdmin(admin.ModelAdmin):
     model = models.VtsModel
     fields = ['name', 'options', 'description', 'test_definition']
     list_display = ['name']
+
 
 class TestDefinitionAdmin(admin.ModelAdmin):
     """

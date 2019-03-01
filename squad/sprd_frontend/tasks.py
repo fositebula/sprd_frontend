@@ -7,8 +7,8 @@ import requests
 
 logger = get_task_logger(__name__)
 
+
 def pac_node_spider(url):
-    #http://10.0.70.113:8080/download-lava/autodaily/verify_daily_pac_sharkl3/{}/target/
     url = '/'.join(url.split('/')[:-3])
     r = requests.get(url)
     bs = BeautifulSoup(r.content, 'lxml')
@@ -25,7 +25,7 @@ def pac_node_spider(url):
 
 @celery.task
 def update_pac_node(device_type_id=None):
-    if device_type_id == None:
+    if device_type_id is None:
         device_type = DeviceType.objects.all()
         for d in device_type:
             nodes = pac_node_spider(d.base_pac_url)
@@ -36,6 +36,7 @@ def update_pac_node(device_type_id=None):
         nodes = pac_node_spider(device_type.base_pac_url)
         device_type.pac_node = ','.join(nodes)
         device_type.save()
+
 
 if __name__ == '__main__':
     ret = pac_node_spider('http://10.0.70.113:8080/download-lava/autodaily/verify_daily_pac_sharkl3/{}/target/')

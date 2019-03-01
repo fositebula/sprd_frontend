@@ -10,14 +10,11 @@ import yaml
 
 from django.db.models import Case, When
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
-from django.http import HttpResponseBadRequest
 from django.shortcuts import render, get_object_or_404, redirect
 
 from squad.ci.models import TestJob
 from squad.core.models import Group, Metric, ProjectStatus, Status, Project
-from squad.ci.models import Backend
 
 from squad.core.models import Build
 from squad.core.queries import get_metric_data
@@ -26,9 +23,8 @@ from squad.frontend.utils import file_type
 from squad.http import auth
 from django.contrib.auth.decorators import login_required
 from collections import OrderedDict
-from .models import *
+from .models import VtsVersion, VtsModel, DeviceType, TestDefinition
 from squad.ci.tasks import submit
-
 
 
 def verify_dowloader(target_url, device_type):
@@ -46,6 +42,7 @@ def verify_dowloader(target_url, device_type):
             files.append(tt.text)
 
     return verifyid, burl, files
+
 
 class BuildDeleted(Http404):
 
@@ -87,11 +84,13 @@ def home(request):
     }
     return render(request, 'squad/index.jinja2', context)
 
+
 @login_required
 def submit_job(request):
+    """
     #submit_job(request, group_slug, project_slug, version, environment_slug)
+    """
 
-    context = {}
     vts_versions = VtsVersion.objects.all()
     vts_models = VtsModel.objects.all()
     device_types = DeviceType.objects.all()
