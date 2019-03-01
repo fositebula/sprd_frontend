@@ -85,6 +85,7 @@ def sprd_auth(func, mode=AuthMode.READ):
 
     return auth_wrapper
 
+
 def read_file_upload(stream):
     data = bytes()
     for chunk in stream.chunks():
