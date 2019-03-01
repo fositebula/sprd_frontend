@@ -14,7 +14,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 from squad.ci.models import TestJob
-from squad.core.models import Group, Metric, ProjectStatus, Status, Project
+from squad.core.models import Group, Metric, ProjectStatus, Status
 
 from squad.core.models import Build
 from squad.core.queries import get_metric_data
@@ -228,7 +228,6 @@ def submit_job(request):
         definition_data['job_name'] = version
         definition_data['device_type'] = device_type.name
         definition_s = yaml.dump(definition_data)
-
 
         # create TestJob object
         test_job = TestJob.objects.create(

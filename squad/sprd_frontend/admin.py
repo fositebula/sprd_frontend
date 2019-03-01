@@ -24,7 +24,7 @@ class DeviceTypeAdmin(admin.ModelAdmin):
     """
     model = models.DeviceType
     fields = ['name', 'pac_node', 'backend', 'project', 'env', 'slug', 'base_pac_url']
-    list_display = ['name', 'backend', 'project', 'env', 'slug',]
+    list_display = ['name', 'backend', 'project', 'env', 'slug']
     actions = [update_pac_nodes]
 
 
