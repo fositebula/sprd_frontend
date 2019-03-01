@@ -1,0 +1,32 @@
+<h2 class="page-header well">
+  <a class="h2 text-primitive" href="{{group_url(project.group) }}">{{project.group.display_name}}</a>
+  » <a class="h2 text-primary" href="{{project_url(project)}}">{{project.display_name}}</a>
+  {{pagetitle|default("")}}
+</h1>
+<ul class="page-header nav nav-pills">
+  {% with url_name=request.resolver_match.url_name %}
+  <li role="presentation" {% if url_name == 'project' %}class="active"{% endif %}>
+    <a href="{{project_url(project)}}">
+      Project Summary
+    </a>
+  </li>
+  <li role="presentation" {% if url_name == 'build' or url_name == 'builds' or url_name == 'testrun' %}class="active"{% endif %}>
+    <a href="{{project_section_url(project, 'builds')}}">
+      Builds
+    </a>
+  </li>
+
+  <li role="presentation" {% if url_name == 'metrics' %}class="active"{% endif %}>
+    <a href="{{project_section_url(project, 'metrics')}}">
+      Metrics
+    </a>
+  </li>
+
+  <li role="presentation" {% if url_name == 'thresholds' %}class="active"{% endif %}>
+    <a href="{{project_section_url(project, 'thresholds')}}">
+      Threshold settings
+    </a>
+  </li>
+
+  {% endwith %}
+</ul>

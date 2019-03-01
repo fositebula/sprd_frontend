@@ -13,6 +13,7 @@ include package-lock.json
 
 include           squad/core/management/commands/import_data.rst
 recursive-include squad/frontend/static/ *
+recursive-include squad/sprd_frontend/static/ *
 recursive-include squad/*/templates/ *
 recursive-include test/ *.py *.json *.csv *.log *.png *.yaml *.js
 recursive-include scripts/ *

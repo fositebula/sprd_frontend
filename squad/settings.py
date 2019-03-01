@@ -76,7 +76,7 @@ __apps__ = [
     'django_filters',
     'squad.core',
     'squad.api',
-    'squad.frontend',
+    'squad.sprd_frontend',
     'squad.ci',
 ]
 
@@ -102,7 +102,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.jinja2.Jinja2',
         # look for templates explicitly under squad.api so that Django REST
         # Framework finds rest_framework/api.html in there
-        'DIRS': [os.path.join(BASE_DIR, path) for path in ['squad/frontend/templates', 'squad/core/templates', 'squad/ci/templates']],
+        'DIRS': [os.path.join(BASE_DIR, path) for path in ['squad/sprd_frontend/templates', 'squad/core/templates', 'squad/ci/templates']],
         'APP_DIRS': True,
         'OPTIONS': {
             'environment': 'squad.jinja2.environment',
@@ -278,6 +278,10 @@ CELERY_BEAT_SCHEDULE = {
     'report_cleanup': {
         'task': 'squad.core.tasks.remove_delayed_reports',
         'schedule': crontab(hour='7', minute=21),
+    },
+    'report_update_pac_nodes': {
+        'task': 'squad.sprd_frontend.tasks.update_pac_node',
+        'schedule': crontab(hour='7', minute=1),
     }
 }
 CELERY_TASK_ROUTES = {

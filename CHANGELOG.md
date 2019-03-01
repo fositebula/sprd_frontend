@@ -1,4 +1,4 @@
-# 0.61
+# 0.62
 
 * Add management command to update project statues from scratch.
 * travis:
