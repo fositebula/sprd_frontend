@@ -148,7 +148,11 @@ def submit_job(request):
     build, _ = project.builds.get_or_create(version=version)
 
     if vts_models_manuel[0]:
-        definition = TestDefinition.objects.get(name='vts_common')
+        try:
+            definition = TestDefinition.objects.get(name='vts_common')
+        except TestDefinition.DoesNotExist:
+            context['message'] = 'Please create vts common in admin'
+            return render(request, 'squad/submit.jinja2', context)
 
         definition_data = yaml.load(definition.content)
 
