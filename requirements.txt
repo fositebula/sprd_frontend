@@ -18,3 +18,5 @@ requests
 sqlparse
 svgwrite
 whitenoise
+lxml
+bs4

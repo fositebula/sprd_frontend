@@ -147,7 +147,7 @@ def submit_job(request):
     # create Build object
     build, _ = project.builds.get_or_create(version=version)
 
-    if vts_models_manuel:
+    if vts_models_manuel[0]:
         definition = TestDefinition.objects.get(name='vts_common')
 
         definition_data = yaml.load(definition.content)
